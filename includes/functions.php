@@ -1,6 +1,6 @@
 <?php 
 //validate input from the form
-function validate(&$error_message, $loan_amount, $interest_rate, $loan_length, $time_unit, $extra_payment){
+function validate(&$error_message, $loan_amount, $interest_rate, $loan_length, $time_unit){
 // validate Loan amount
 if ($loan_amount === FALSE ) {
     $error_message = 'Loan amount must be a valid number.'; 
@@ -27,12 +27,14 @@ if ($loan_amount === FALSE ) {
     $error_message = ''; 
 	}
 }
+
 //calculate the monthly interest rate 
-function calc_monthly_int($interest, $interest_rate){
+function calc_monthly_int($interest_rate){
 // calculate the monthly interest rate
 $interest = ($interest_rate / 100) / 12;
 return $interest;
 }
+
 //convert loan years to loan months
 function loan_months($time_unit, &$loan_length){
 //make sure the loan length is in months
@@ -40,9 +42,11 @@ if ($time_unit == 'years'){
     $loan_length = $loan_length * 12;
 	}
 }
+
 //display the amortization chart
 function display_table($date, $i, $monthly_payment, $monthly_interest, $principle, $extra_payment, $remaining_balance){
 $date->modify('first day of next month');
+
 echo '<div>' . $i . '</div>
 <div>' .$date->format('m/d/Y') .'</div>
 <div>$' . number_format($monthly_payment,2) . '</div>
@@ -51,4 +55,5 @@ echo '<div>' . $i . '</div>
 <div>$' . number_format($extra_payment,2) . '</div>
 <div>$' . number_format($remaining_balance,2) . '</div>';
 }
+
 ?>
